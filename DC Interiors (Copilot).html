@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DC | Interiors & Barbershop</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
+}
+
+body{
+    background:#f8f7f4;
+    color:#2d2d2d;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+[hidden]{
+    display:none !important;
+}
+
+@keyframes view-enter{
+    from{
+        opacity:0;
+        transform:translate3d(0,18px,0) scale(.995);
+    }
+    to{
+        opacity:1;
+        transform:translate3d(0,0,0) scale(1);
+    }
+}
+
+.site-view:not([hidden]){
+    animation:view-enter .72s cubic-bezier(.16,1,.3,1);
+}
+
+.scroll-reveal{
+    opacity:0;
+    transform:translate3d(0,34px,0) scale(.985);
+    filter:blur(4px);
+    transition:
+        opacity .8s cubic-bezier(.16,1,.3,1),
+        transform .8s cubic-bezier(.16,1,.3,1),
+        filter .8s ease;
+    transition-delay:var(--reveal-delay,0ms);
+}
+
+.scroll-reveal.is-visible{
+    opacity:1;
+    transform:translate3d(0,0,0) scale(1);
+    filter:blur(0);
+}
+
+@media (prefers-reduced-motion: reduce){
+    html{
+        scroll-behavior:auto;
+    }
+
+    .site-view:not([hidden]){
+        animation:none;
+    }
+
+    .scroll-reveal,
+    .scroll-reveal.is-visible{
+        opacity:1;
+        transform:none;
+        filter:none;
+        transition:none;
+    }
+
+}
+
+.glass-nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    padding:12px clamp(16px,5vw,56px) 12px clamp(16px,5vw,56px);
+    padding-right:clamp(290px,28vw,330px);
+    border-bottom:1px solid rgba(255,255,255,.65);
+    background:rgba(255,255,255,.72);
+    box-shadow:0 8px 28px rgba(25,20,10,.08);
+    -webkit-backdrop-filter:blur(20px) saturate(175%);
+    backdrop-filter:blur(20px) saturate(175%);
+}
+
+.language-switcher{
+    position:fixed;
+    z-index:100;
+    top:10px;
+    right:clamp(12px,3vw,32px);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:7px 10px 7px 13px;
+    border:1px solid rgba(255,255,255,.55);
+    border-radius:999px;
+    background:rgba(255,255,255,.82);
+    box-shadow:0 6px 22px rgba(25,20,10,.12);
+    color:#38352f;
+    font-size:.9rem;
+    -webkit-backdrop-filter:blur(18px) saturate(160%);
+    backdrop-filter:blur(18px) saturate(160%);
+}
+
+.language-switcher select{
+    padding:5px 25px 5px 10px;
+    border:0;
+    border-radius:999px;
+    background:rgba(138,101,8,.1);
+    color:#302719;
+    font:inherit;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.language-switcher select:focus-visible{
+    outline:2px solid #b8860b;
+    outline-offset:2px;
+}
+
+.language-switcher option{
+    color:#302719;
+}
+
+.glass-nav-dark{
+    border-bottom-color:rgba(255,255,255,.12);
+    background:rgba(29,28,26,.76);
+    box-shadow:0 8px 28px rgba(0,0,0,.2);
+    color:#f6f1e8;
+}
+
+.nav-links{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:6px;
+}
+
+.nav-links a,
+.nav-links button,
+.nav-contact{
+    display:inline-flex;
+    align-items:center;
+    padding:9px 14px;
+    border:0;
+    border-radius:999px;
+    background:transparent;
+    color:#38352f;
+    font:inherit;
+    text-decoration:none;
+    white-space:nowrap;
+    cursor:pointer;
+    transition:background .3s ease, color .3s ease, transform .3s ease;
+}
+
+.nav-links a:hover,
+.nav-links button:hover,
+.nav-contact:hover{
+    transform:translateY(-1px);
+    background:rgba(184,134,11,.12);
+}
+
+.glass-nav-dark .nav-links a,
+.glass-nav-dark .nav-links button,
+.glass-nav-dark .nav-contact,
+.glass-nav-dark .home-link{
+    color:#f6f1e8;
+}
+
+.glass-nav-dark .nav-links a:hover,
+.glass-nav-dark .nav-links button:hover,
+.glass-nav-dark .nav-contact:hover{
+    background:rgba(213,173,88,.18);
+}
+
+.nav-links a:focus-visible,
+.nav-links button:focus-visible,
+.nav-contact:focus-visible,
+.home-link:focus-visible{
+    outline:2px solid #b8860b;
+    outline-offset:2px;
+}
+
+.home-link{
+    border:0;
+    background:none;
+    color:#555;
+    font:inherit;
+    white-space:nowrap;
+    cursor:pointer;
+}
+
+@media (max-width:700px){
+    .glass-nav{
+        justify-content:center;
+        flex-wrap:wrap;
+        gap:8px;
+        padding:58px 12px 10px;
+    }
+
+    .glass-nav .home-link{
+        flex:1 0 100%;
+        text-align:center;
+    }
+
+    .nav-links{
+        gap:2px;
+    }
+
+    .nav-links a,
+    .nav-links button,
+    .nav-contact{
+        padding:8px 10px;
+        font-size:.9rem;
+    }
+}
+
+#homeView{
+    min-height:100vh;
+    background:#151613;
+}
+
+.home-hero{
+    padding:85px 20px;
+    background:#151613;
+    color:#f8f3e9;
+    text-align:center;
+}
+
+.home-hero h1{
+    margin-bottom:15px;
+    color:#e4c47f;
+    font-size:clamp(2.5rem,6vw,4rem);
+}
+
+.home-hero p{
+    font-size:1.1rem;
+    color:#f0e5d1;
+}
+
+.choice-section{
+    max-width:1100px;
+    margin:auto;
+    padding:55px 20px 70px;
+}
+
+.choice-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+}
+
+.choice-card{
+    position:relative;
+    z-index:0;
+    min-height:240px;
+    padding:35px;
+    border:1px solid #e7e1d6;
+    border-radius:20px;
+    background:white;
+    color:#2d2d2d;
+    font:inherit;
+    text-align:left;
+    cursor:pointer;
+    box-shadow:0 8px 28px rgba(0,0,0,.2);
+    transition:transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s ease;
+}
+
+.choice-card:hover{
+    z-index:2;
+    transform:translateY(-8px) scale(1.12);
+}
+
+.choice-card:focus-visible{
+    z-index:2;
+    outline:3px solid #e4c47f;
+    outline-offset:5px;
+    transform:translateY(-8px) scale(1.12);
+}
+
+.choice-card span{
+    display:block;
+    margin-bottom:14px;
+    color:#705014;
+    font-size:.8rem;
+    font-weight:700;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+}
+
+.choice-card h2{
+    margin-bottom:12px;
+    font-size:2rem;
+}
+
+.choice-card p{
+    color:#666;
+    font-size:1rem;
+    line-height:1.6;
+}
+
+.choice-card[data-view="interiorsView"]{
+    border-color:#d6c39b;
+    background:#e8dcc3;
+    box-shadow:0 0 20px rgba(232,220,195,.28), 0 8px 28px rgba(0,0,0,.2);
+}
+
+.choice-card[data-view="interiorsView"]:hover,
+.choice-card[data-view="interiorsView"]:focus-visible{
+    box-shadow:0 0 28px rgba(232,220,195,.65), 0 0 58px rgba(184,134,11,.42), 0 20px 42px rgba(0,0,0,.35);
+}
+
+.choice-card[data-view="barbershopView"]{
+    border-color:#414936;
+    background:#414936;
+    color:#f8f3e9;
+    box-shadow:0 0 20px rgba(128,148,91,.3), 0 8px 28px rgba(0,0,0,.2);
+}
+
+.choice-card[data-view="barbershopView"]:hover,
+.choice-card[data-view="barbershopView"]:focus-visible{
+    box-shadow:0 0 30px rgba(168,190,126,.62), 0 0 60px rgba(228,196,127,.3), 0 20px 42px rgba(0,0,0,.35);
+}
+
+@media (prefers-reduced-motion: reduce){
+    .choice-card{
+        transition:none;
+    }
+
+    .choice-card:hover,
+    .choice-card:focus-visible{
+        transform:none;
+    }
+}
+
+.choice-card[data-view="barbershopView"] span{
+    color:#e4c47f;
+}
+
+.choice-card[data-view="barbershopView"] p{
+    color:#eee5d6;
+}
+
+.detail-intro{
+    max-width:820px;
+    margin:0 auto 32px;
+    color:#625e56;
+    font-size:1.05rem;
+    line-height:1.8;
+    text-align:center;
+}
+
+.detail-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.detail-card{
+    padding:26px;
+    border:1px solid rgba(138,101,8,.14);
+    border-radius:18px;
+    background:rgba(255,255,255,.82);
+    box-shadow:0 8px 26px rgba(35,29,18,.05);
+}
+
+.detail-card h3{
+    margin-bottom:10px;
+    color:#8a6508;
+}
+
+.detail-card p{
+    color:#625e56;
+    line-height:1.7;
+}
+
+.info-cta{
+    margin:12px auto;
+    padding:42px 24px;
+    border:1px solid rgba(255,255,255,.7);
+    border-radius:24px;
+    background:linear-gradient(135deg,rgba(255,255,255,.85),rgba(237,229,212,.8));
+    box-shadow:0 12px 32px rgba(35,29,18,.08);
+    text-align:center;
+}
+
+.info-cta h2{
+    margin-bottom:10px;
+    color:#8a6508;
+}
+
+.info-cta p{
+    color:#625e56;
+}
+
+.story-hero{
+    padding:clamp(70px,10vw,120px) 20px;
+    color:white;
+    text-align:center;
+}
+
+.story-hero-interiors{
+    background:linear-gradient(135deg,#29251e,#71582e);
+}
+
+.story-hero-barber{
+    background:linear-gradient(120deg,#121212,#43382b);
+}
+
+.story-hero p{
+    margin-bottom:12px;
+    color:#e7d6b1;
+    font-weight:700;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+}
+
+.story-hero h1{
+    max-width:900px;
+    margin:0 auto;
+    font-size:clamp(2.4rem,6vw,4.2rem);
+    line-height:1.1;
+}
+
+.story-container{
+    max-width:950px;
+    margin:auto;
+    padding:64px 24px;
+}
+
+.story-container h2{
+    margin-bottom:20px;
+    color:#8a6508;
+    font-size:2rem;
+}
+
+.story-container p{
+    margin-bottom:18px;
+    color:#504c45;
+    font-size:1.08rem;
+    line-height:1.85;
+}
+
+.story-timeline{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:16px;
+    margin-top:32px;
+}
+
+.story-step{
+    padding:22px;
+    border-left:3px solid #b8860b;
+    border-radius:0 14px 14px 0;
+    background:rgba(255,255,255,.8);
+}
+
+.story-step strong{
+    display:block;
+    margin-bottom:8px;
+    color:#8a6508;
+}
+
+.story-step span{
+    color:#625e56;
+    line-height:1.6;
+}
+
+.barbershop-story .story-container h2,
+.barbershop-story .story-step strong{
+    color:#654b20;
+}
+
+.interiors-hero{
+    position:relative;
+    isolation:isolate;
+    background:
+        linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.4)),
+        url("Unnamed Space-15.jpg") center 55%/cover no-repeat;
+    text-align:center;
+    padding:100px 20px;
+}
+
+.interiors-hero::after{
+    position:absolute;
+    z-index:-1;
+    inset:0;
+    background:linear-gradient(
+        to bottom,
+        rgba(232,220,195,0) 48%,
+        rgba(232,220,195,.72) 78%,
+        #e8dcc3 100%
+    );
+    content:"";
+    pointer-events:none;
+}
+
+.interiors-hero h1{
+    font-size:4rem;
+    color:#f8f0da;
+    margin-bottom:15px;
+}
+
+.interiors-hero p{
+    color:white;
+    font-size:1.1rem;
+}
+
+.barber-hero{
+    padding:100px 8%;
+    background:
+        radial-gradient(ellipse at 75% 30%,rgba(173,125,48,.25),transparent 40%),
+        linear-gradient(120deg,#121212,#27231d);
+    color:white;
+}
+
+.barber-hero-content{
+    max-width:1100px;
+    margin:auto;
+}
+
+.barber-hero .eyebrow{
+    color:#e4c47f;
+    font-size:.85rem;
+    font-weight:700;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+}
+
+.barber-hero h1{
+    max-width:780px;
+    margin:18px 0;
+    font-size:clamp(2.6rem,6vw,4.8rem);
+    line-height:1.05;
+}
+
+.barber-hero p{
+    max-width:600px;
+    color:#e2ded7;
+    font-size:1.15rem;
+    line-height:1.7;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:25px;
+    border:0;
+    background:#b8860b;
+    color:#211a0d;
+    padding:14px 30px;
+    border-radius:30px;
+    text-decoration:none;
+    font-size:1rem;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn:hover{
+    opacity:.9;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:60px 20px;
+}
+
+#interiorsServices,
+#interiorsApproach,
+#interiorsTools,
+#portfolio,
+#barberServices,
+#barberExperience,
+#barberGallery,
+#appointment,
+#barberContact,
+#interiorsStoryBeginning,
+#interiorsStoryVision,
+#barbershopStoryBeginning,
+#barbershopStoryToday{
+    scroll-margin-top:100px;
+}
+
+#portfolio[hidden]{
+    display:none;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.section-title h2{
+    color:#72520e;
+    font-size:2.2rem;
+}
+
+/* SERVICES */
+
+.services{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.05);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card h3{
+    color:#72520e;
+    margin-bottom:15px;
+}
+
+/* GALLERY */
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+}
+
+.gallery[hidden]{
+    display:none;
+}
+
+.gallery img{
+    width:100%;
+    height:280px;
+    object-fit:cover;
+    border-radius:18px;
+    transition:.3s;
+    cursor:zoom-in;
+}
+
+.gallery img:hover{
+    transform:scale(1.02);
+}
+
+.barber-gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));
+    gap:24px;
+}
+
+.photo-frame{
+    display:grid;
+    position:relative;
+    height:clamp(420px,42vw,520px);
+    place-items:center;
+    overflow:hidden;
+    border:1px solid #b89a5e;
+    border-radius:18px;
+    background:linear-gradient(145deg,#282521,#514330);
+    color:#f5e8c9;
+    text-align:center;
+}
+
+.photo-frame img,
+.photo-frame video{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+.photo-frame img{
+    cursor:zoom-in;
+}
+
+.gallery img:focus-visible,
+.photo-frame img:focus-visible{
+    outline:3px solid #b8860b;
+    outline-offset:4px;
+}
+
+.photo-frame figcaption{
+    padding:25px;
+}
+
+.photo-frame span{
+    display:block;
+    margin-bottom:12px;
+    color:#e4c47f;
+    font-size:.85rem;
+    letter-spacing:.16em;
+}
+
+.photo-frame strong{
+    display:block;
+    font-size:1.15rem;
+}
+
+.photo-frame small{
+    display:block;
+    margin-top:10px;
+    color:#d4cbb9;
+    line-height:1.5;
+}
+
+.barber-contact{
+    padding:50px 20px;
+    background:#211f1c;
+    color:white;
+    text-align:center;
+}
+
+.barber-contact h2{
+    margin-bottom:12px;
+    color:#d5ad58;
+}
+
+.barber-contact a{
+    color:#f5e8c9;
+}
+
+.appointment-section{
+    padding:55px 20px;
+    background:linear-gradient(135deg,#eee7da,#faf8f4);
+    text-align:center;
+}
+
+.appointment-section h2{
+    margin-bottom:12px;
+    color:#9a701e;
+    font-size:2rem;
+}
+
+.appointment-section p{
+    color:#5f5a51;
+}
+
+.appointment-dialog{
+    width:min(92vw,520px);
+    max-width:92vw;
+    margin:auto;
+    padding:40px 30px 30px;
+    border:1px solid rgba(255,255,255,.75);
+    border-radius:24px;
+    background:rgba(250,248,244,.9);
+    box-shadow:0 24px 80px rgba(0,0,0,.25);
+    color:#2d2d2d;
+    -webkit-backdrop-filter:blur(22px) saturate(165%);
+    backdrop-filter:blur(22px) saturate(165%);
+}
+
+.appointment-dialog::backdrop{
+    background:rgba(18,17,15,.58);
+    -webkit-backdrop-filter:blur(5px);
+    backdrop-filter:blur(5px);
+}
+
+.appointment-dialog h2{
+    margin-bottom:10px;
+    color:#8a6508;
+}
+
+.appointment-dialog p{
+    margin-bottom:22px;
+    color:#625e56;
+    line-height:1.5;
+}
+
+.appointment-dialog .photo-lightbox-close{
+    color:#302d27;
+}
+
+.appointment-options{
+    display:grid;
+    gap:12px;
+}
+
+.appointment-option{
+    display:block;
+    padding:15px 18px;
+    border:1px solid rgba(138,101,8,.2);
+    border-radius:14px;
+    background:rgba(255,255,255,.62);
+    color:#292722;
+    text-decoration:none;
+    transition:transform .3s ease, background .3s ease, box-shadow .3s ease;
+}
+
+.appointment-option:hover{
+    transform:translateY(-2px);
+    background:rgba(255,255,255,.92);
+    box-shadow:0 8px 22px rgba(0,0,0,.08);
+}
+
+.appointment-option strong,
+.appointment-option span{
+    display:block;
+}
+
+.appointment-option span{
+    margin-top:4px;
+    color:#6b665c;
+    font-size:.92rem;
+}
+
+.photo-lightbox{
+    width:fit-content;
+    max-width:95vw;
+    max-height:95vh;
+    margin:auto;
+    padding:48px 16px 16px;
+    border:0;
+    border-radius:16px;
+    background:#161616;
+}
+
+.photo-lightbox::backdrop{
+    background:rgba(0,0,0,.88);
+}
+
+.photo-lightbox img{
+    display:block;
+    max-width:calc(95vw - 32px);
+    max-height:calc(90vh - 64px);
+    object-fit:contain;
+    border-radius:8px;
+}
+
+.photo-lightbox-close{
+    position:absolute;
+    top:6px;
+    right:12px;
+    border:0;
+    background:transparent;
+    color:white;
+    font-size:2rem;
+    cursor:pointer;
+}
+
+/* FOOTER */
+
+footer{
+    background:#ffffff;
+    text-align:center;
+    padding:30px;
+    margin-top:60px;
+    border-top:1px solid #ececec;
+}
+
+footer p{
+    color:#625e56;
+}
+
+#interiorsView,
+#interiorsStoryView{
+    background:#e8dcc3;
+}
+
+#barbershopView,
+#barbershopStoryView{
+    background:#414936;
+    color:#f8f3e9;
+}
+
+#interiorsView footer,
+#interiorsStoryView footer,
+#barbershopView footer,
+#barbershopStoryView footer{
+    background:transparent;
+}
+
+#interiorsView footer,
+#interiorsStoryView footer{
+    border-top-color:rgba(91,73,49,.18);
+}
+
+#barbershopView footer,
+#barbershopStoryView footer{
+    border-top-color:rgba(248,243,233,.18);
+}
+
+#barbershopView footer p,
+#barbershopStoryView footer p{
+    color:#e7d6b1;
+}
+
+#barbershopView .section-title h2{
+    color:#e4c47f;
+}
+
+#barbershopView .detail-intro,
+#barbershopStoryView .story-container p{
+    color:#f0e5d1;
+}
+
+#barbershopView .card{
+    color:#2d2d2d;
+}
+
+#barbershopView .card p{
+    color:#625e56;
+}
+
+#barbershopView .barber-hero,
+#barbershopView .barber-contact,
+#barbershopView .appointment-section{
+    background:#414936;
+}
+
+#interiorsStoryView .story-hero-interiors{
+    background:#e8dcc3;
+    color:#2d2d2d;
+}
+
+#interiorsStoryView .story-hero-interiors p{
+    color:#705014;
+}
+
+#barbershopStoryView .story-hero-barber{
+    background:#414936;
+}
+
+#barbershopStoryView .story-container h2{
+    color:#e4c47f;
+}
+
+#barbershopStoryView .info-cta h2{
+    color:#72520e;
+}
+
+#barbershopStoryView .info-cta p{
+    color:#504c45;
+}
+
+#barbershopStoryView .story-step{
+    border-left-color:#e4c47f;
+    background:rgba(35,42,30,.82);
+}
+
+#barbershopStoryView .story-step strong{
+    color:#e4c47f;
+}
+
+#barbershopStoryView .story-step span{
+    color:#f0e5d1;
+}
+
+#barbershopView .appointment-section h2,
+#barbershopView .appointment-section p,
+#barbershopView .barber-contact h2,
+#barbershopView .barber-contact p{
+    color:#f0e5d1;
+}
+
+#barbershopView .barber-contact a{
+    color:#f4d795;
+}
+
+#barbershopView .btn{
+    color:#211a0d;
+}
+
+#interiorsStoryView .story-hero-interiors h1{
+    color:#302719;
+}
+</style>
+</head>
+
+<body>
+
+<label class="language-switcher" for="languageSelect">
+    <span id="languageLabel">Taal</span>
+    <select id="languageSelect" aria-label="Kies taal">
+        <option value="nl">Nederlands</option>
+        <option value="en">English</option>
+    </select>
+</label>
+
+<main class="site-view" id="homeView">
+    <header class="home-hero">
+        <h1>Welkom bij DC</h1>
+        <p>Kies de wereld die je wilt ontdekken.</p>
+    </header>
+
+    <section class="choice-section" aria-label="Kies een website">
+        <div class="choice-grid">
+            <button class="choice-card" type="button" data-view="interiorsView">
+                <span>Interieur & visualisatie</span>
+                <h2>DC Interiors</h2>
+                <p>Ontdek stijlvolle interieurconcepten, architectuur en projectrenders.</p>
+            </button>
+
+            <button class="choice-card" type="button" data-view="barbershopView">
+                <span>Barbering & verzorging</span>
+                <h2>DC Barbershop</h2>
+                <p>Een persoonlijke barberervaring met aandacht voor coupe, detail en stijl.</p>
+            </button>
+        </div>
+    </section>
+</main>
+
+<main class="site-view" id="interiorsView" hidden>
+    <nav class="glass-nav" aria-label="DC Interiors navigatie">
+        <button class="home-link" type="button" data-view="homeView">← Hoofdpagina</button>
+        <div class="nav-links">
+            <a href="#interiorsServices">Diensten</a>
+            <a href="#interiorsApproach">Werkwijze</a>
+            <a href="#interiorsTools">Tools</a>
+            <button type="button" data-open-portfolio aria-controls="portfolio">Portfolio</button>
+            <button type="button" data-view="interiorsStoryView">Meer info</button>
+        </div>
+        <a class="nav-contact" href="mailto:dcbarbershop.info@gmail.com">Contact</a>
+    </nav>
+
+    <header class="interiors-hero">
+        <h1>DC Interiors</h1>
+        <p>Luxury Interior Design & Architectural Visualization</p>
+
+        <button
+            type="button"
+            class="btn"
+            id="portfolioButton"
+            aria-expanded="false"
+            aria-controls="portfolio"
+        >
+            Bekijk Portfolio
+        </button>
+    </header>
+
+    <div class="container" id="interiorsServices">
+        <div class="section-title">
+            <h2>Onze Diensten</h2>
+        </div>
+
+        <div class="services">
+            <div class="card">
+                <h3>Residentieel Design</h3>
+                <p>Volledig interieurontwerp voor woningen, appartementen en villa's.</p>
+            </div>
+
+            <div class="card">
+                <h3>Commercieel Design</h3>
+                <p>Luxueuze kantoor-, winkel- en horecaconcepten.</p>
+            </div>
+
+            <div class="card">
+                <h3>3D Visualisaties</h3>
+                <p>Fotorealistische renders voor projecten en presentaties.</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="container">
+        <div class="section-title">
+            <h2>Van idee naar een ruimte die klopt</h2>
+        </div>
+        <p class="detail-intro">Een geslaagd interieur is meer dan een mooie afbeelding. Indeling, licht, kleur, materiaal en dagelijks gebruik horen samen te werken. Daarom kijken we naar het geheel en naar de details.</p>
+        <div class="detail-grid">
+            <article class="detail-card">
+                <h3>Indeling & ruimte</h3>
+                <p>We onderzoeken hoe een ruimte wordt gebruikt en hoe functies logisch met elkaar kunnen worden verbonden.</p>
+            </article>
+            <article class="detail-card">
+                <h3>Kleur & materiaal</h3>
+                <p>Kleuren, texturen en materialen helpen de gewenste sfeer op te bouwen en geven een ontwerp samenhang.</p>
+            </article>
+            <article class="detail-card">
+                <h3>Licht & beleving</h3>
+                <p>Licht beïnvloedt hoe een ruimte aanvoelt. We nemen het mee in de sfeer en presentatie van een concept.</p>
+            </article>
+            <article class="detail-card">
+                <h3>Visualisatie</h3>
+                <p>Beelden en presentaties maken ideeën begrijpelijk en helpen keuzes voor het ontwerp te bespreken.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="container" id="interiorsApproach">
+        <div class="section-title">
+            <h2>Onze werkwijze</h2>
+        </div>
+        <p class="detail-intro">Elk project begint met aandachtig luisteren. Daarna groeit het ontwerp stap voor stap, zodat keuzes niet gehaast maar met een duidelijk doel worden gemaakt.</p>
+        <div class="story-timeline">
+            <div class="story-step">
+                <strong>01 · Kennismaken</strong>
+                <span>We brengen wensen, praktische behoeften en de gewenste sfeer in kaart.</span>
+            </div>
+            <div class="story-step">
+                <strong>02 · Richting bepalen</strong>
+                <span>Inspiratie, kleuren en materialen vormen samen de basis van het concept.</span>
+            </div>
+            <div class="story-step">
+                <strong>03 · Ontwerp uitwerken</strong>
+                <span>De ideeën worden verfijnd tot een samenhangend ontwerp en visuele presentatie.</span>
+            </div>
+            <div class="story-step">
+                <strong>04 · Presenteren</strong>
+                <span>Het eindresultaat wordt overzichtelijk toegelicht, zodat de keuzes goed te volgen zijn.</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="interiorsTools">
+        <div class="section-title">
+            <h2>De tools achter het ontwerp</h2>
+        </div>
+        <p class="detail-intro">Ons team werkt onder andere met Adobe Photoshop, Adobe Illustrator en Adobe InDesign om ideeën zorgvuldig uit te werken en helder te presenteren. De toolkeuze hangt af van wat het project nodig heeft.</p>
+        <div class="detail-grid">
+            <article class="detail-card">
+                <h3>Adobe Photoshop</h3>
+                <p>Voor beeldbewerking, sfeerbeelden en het verfijnen van visualisaties.</p>
+            </article>
+            <article class="detail-card">
+                <h3>Adobe Illustrator</h3>
+                <p>Voor heldere grafische elementen, illustraties en visuele details.</p>
+            </article>
+            <article class="detail-card">
+                <h3>Adobe InDesign</h3>
+                <p>Voor verzorgde presentaties waarin beelden, tekst en ontwerpkeuzes samenkomen.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="info-cta">
+            <h2>Benieuwd naar het verhaal achter DC Interiors?</h2>
+            <p>Lees hoe een droom rustig uitgroeide tot een creatieve ontwerppraktijk.</p>
+            <button class="btn" type="button" data-view="interiorsStoryView">Meer info</button>
+        </div>
+    </section>
+
+    <div class="container" id="portfolio" hidden>
+        <div class="section-title">
+            <h2>Project Galerij</h2>
+        </div>
+
+        <div class="gallery">
+            <img src="Unnamed Space-15.jpg" alt="Render 1">
+            <img src="Unnamed Space-14.jpg" alt="Render 2">
+            <img src="Unnamed Space-13.jpg" alt="Render 3">
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 DC Interiors | Interior Design & Visualization Studio</p>
+    </footer>
+</main>
+
+<main class="site-view" id="interiorsStoryView" hidden>
+    <nav class="glass-nav" aria-label="DC Interiors verhaal navigatie">
+        <button class="home-link" type="button" data-view="interiorsView">← DC Interiors</button>
+        <div class="nav-links">
+            <a href="#interiorsStoryBeginning">Het begin</a>
+            <a href="#interiorsStoryVision">Onze visie</a>
+        </div>
+        <button class="nav-contact" type="button" data-view="homeView">Hoofdpagina</button>
+    </nav>
+
+    <header class="story-hero story-hero-interiors">
+        <p>Het verhaal van DC Interiors</p>
+        <h1>Een droom kreeg de ruimte om te groeien.</h1>
+    </header>
+
+    <section class="story-container" id="interiorsStoryBeginning">
+        <h2>Het begon met een droom</h2>
+        <p>DC Interiors is begonnen met een droom: ruimtes ontwerpen die niet alleen mooi zijn, maar ook prettig aanvoelen en passen bij de mensen die ze gebruiken. Die droom groeide niet in één dag uit tot een afgerond plan. Er was tijd nodig om te kijken, ideeën te verzamelen en te ontdekken welke stijl echt bij DC Interiors past.</p>
+        <p>Stap voor stap kon ik rustig ontwerpen. Een indeling, kleur of materiaal kreeg de tijd om goed te voelen voordat het onderdeel werd van een groter geheel. Zo groeide ieder idee verder uit tot een ontwerp met aandacht voor sfeer, functie en persoonlijke smaak.</p>
+
+        <div class="story-timeline">
+            <div class="story-step">
+                <strong>De droom</strong>
+                <span>Een eigen creatieve richting vinden en ruimtes met karakter ontwerpen.</span>
+            </div>
+            <div class="story-step">
+                <strong>Rustig uitwerken</strong>
+                <span>Ideeën verfijnen, keuzes afwegen en ontwerpen stap voor stap opbouwen.</span>
+            </div>
+            <div class="story-step">
+                <strong>Verder groeien</strong>
+                <span>Elk project gebruiken om de visie scherper en de presentatie sterker te maken.</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="story-container" id="interiorsStoryVision">
+        <h2>Ontwerpen met aandacht</h2>
+        <p>Voor mij draait interieurontwerp om balans: een ruimte moet er goed uitzien, maar ook logisch werken in het dagelijks leven. Daarom begint elk ontwerp met luisteren en rustig nadenken over wat de ruimte nodig heeft.</p>
+        <p>DC Interiors blijft bouwen aan die oorspronkelijke droom. Met nieuwsgierigheid, aandacht voor detail en de ruimte om ideeën zorgvuldig te laten groeien.</p>
+        <div class="info-cta">
+            <h2>Ontdek DC Interiors</h2>
+            <p>Bekijk de diensten, werkwijze en projectrenders.</p>
+            <button class="btn" type="button" data-view="interiorsView">Terug naar DC Interiors</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 DC Interiors | Interior Design & Visualization Studio</p>
+    </footer>
+</main>
+
+<main class="site-view" id="barbershopView" hidden>
+    <nav class="glass-nav glass-nav-dark" aria-label="DC Barbershop navigatie">
+        <button class="home-link" type="button" data-view="homeView">← Hoofdpagina</button>
+        <div class="nav-links">
+            <a href="#barberServices">Diensten</a>
+            <a href="#barberExperience">Werkwijze</a>
+            <a href="#barberGallery">Sfeer & resultaat</a>
+            <a href="#appointment">Afspraak</a>
+            <button type="button" data-view="barbershopStoryView">Meer info</button>
+        </div>
+        <a class="nav-contact" href="#barberContact">Contact</a>
+    </nav>
+
+    <header class="barber-hero">
+        <div class="barber-hero-content">
+            <p class="eyebrow">DC Barbershop · Vakmanschap met karakter</p>
+            <h1>Een scherpe coupe. Een stijl die helemaal van jou is.</h1>
+            <p>Stap binnen voor persoonlijke aandacht, precisiewerk en een look die bij jou past. Goed verzorgd de deur uit — elke keer weer.</p>
+            <button class="btn" type="button" data-open-appointment>Maak afspraak</button>
+        </div>
+    </header>
+
+    <section class="container" id="barberServices">
+        <div class="section-title">
+            <h2>De aandacht zit in de details</h2>
+        </div>
+
+        <div class="services">
+            <div class="card">
+                <h3>De perfecte coupe</h3>
+                <p>Een frisse, verzorgde look afgestemd op jouw stijl en wensen.</p>
+            </div>
+
+            <div class="card">
+                <h3>Baard & contour</h3>
+                <p>Strakke lijnen en een verzorgde afwerking maken het verschil.</p>
+            </div>
+
+            <div class="card">
+                <h3>Jouw moment</h3>
+                <p>Even tijd voor jezelf, met aandacht voor comfort en vakmanschap.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="barberExperience">
+        <div class="section-title">
+            <h2>Aandacht van begin tot eind</h2>
+        </div>
+        <p class="detail-intro">Iedereen heeft een eigen stijl. Daarom begint een goede knipbeurt met even afstemmen wat je wilt, gevolgd door zorgvuldig werken en een nette afwerking.</p>
+        <div class="detail-grid">
+            <article class="detail-card">
+                <h3>Eerst afstemmen</h3>
+                <p>We bespreken de gewenste coupe of baardstijl en kijken samen naar de details die voor jou belangrijk zijn.</p>
+            </article>
+            <article class="detail-card">
+                <h3>Met precisie werken</h3>
+                <p>Vorm en lijnen krijgen aandacht, met als doel een verzorgde look die past bij jouw wensen.</p>
+            </article>
+            <article class="detail-card">
+                <h3>Netjes afronden</h3>
+                <p>Een laatste controle en verzorgde afwerking maken de afspraak compleet.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="info-cta">
+            <h2>Van een grap naar een barberdroom</h2>
+            <p>Ontdek hoe DC Barbershop is begonnen en hoe het vakmanschap verder groeit.</p>
+            <button class="btn" type="button" data-view="barbershopStoryView">Meer info</button>
+        </div>
+    </section>
+
+    <section class="container" id="barberGallery">
+        <div class="section-title">
+            <h2>Sfeer & resultaat</h2>
+        </div>
+
+        <div class="barber-gallery">
+            <figure class="photo-frame">
+                <video controls playsinline preload="metadata" aria-label="DC Barbershop resultaatvideo 1">
+                    <source src="IMG_5551-web.mp4" type="video/mp4">
+                    Je browser ondersteunt deze video niet.
+                </video>
+            </figure>
+
+            <figure class="photo-frame">
+                <video controls playsinline preload="metadata" aria-label="DC Barbershop resultaatvideo 2">
+                    <source src="IMG_5190-web.mp4" type="video/mp4">
+                    Je browser ondersteunt deze video niet.
+                </video>
+            </figure>
+
+            <figure class="photo-frame">
+                <img src="IMG_2546-web.jpg" alt="Resultaat van DC Barbershop">
+            </figure>
+        </div>
+    </section>
+
+    <section class="appointment-section" id="appointment">
+        <h2>Plan jouw afspraak</h2>
+        <p>Kies hoe je contact wilt opnemen om een afspraak te plannen.</p>
+        <button class="btn" type="button" data-open-appointment>Maak afspraak</button>
+    </section>
+
+    <section class="barber-contact" id="barberContact">
+        <h2>Contact</h2>
+        <p>E-mail: <a href="mailto:dcbarbershop.info@gmail.com">dcbarbershop.info@gmail.com</a></p>
+        <p>Instagram: <a href="https://www.instagram.com/dc.the.barber31/" target="_blank" rel="noopener noreferrer">@dc.the.barber31</a></p>
+    </section>
+
+    <footer>
+        <p>© 2026 DC Barbershop</p>
+    </footer>
+</main>
+
+<main class="site-view barbershop-story" id="barbershopStoryView" hidden>
+    <nav class="glass-nav glass-nav-dark" aria-label="DC Barbershop verhaal navigatie">
+        <button class="home-link" type="button" data-view="barbershopView">← DC Barbershop</button>
+        <div class="nav-links">
+            <a href="#barbershopStoryBeginning">Het begin</a>
+            <a href="#barbershopStoryToday">Vandaag</a>
+        </div>
+        <button class="nav-contact" type="button" data-view="homeView">Hoofdpagina</button>
+    </nav>
+
+    <header class="story-hero story-hero-barber">
+        <p>Het verhaal van DC Barbershop</p>
+        <h1>Van een grap naar een passie voor het vak.</h1>
+    </header>
+
+    <section class="story-container" id="barbershopStoryBeginning">
+        <h2>Een vriend, een knipbeurt en een idee</h2>
+        <p>DC Barbershop begon eigenlijk als een grap. Een vriend liet me zijn haren knippen. Het was in eerste instantie gewoon een leuke uitdaging, maar tijdens het knippen merkte ik dat ik er plezier in had. Ik zag er potentieel in en begon me af te vragen hoe ver ik ermee kon komen.</p>
+        <p>In plaats van het bij die ene keer te laten, besloot ik verder te oefenen en beter te worden. Ik bleef aandacht besteden aan mijn techniek, de vorm en de kleine details die een coupe afmaken. Elke nieuwe ervaring gaf me weer iets om van te leren.</p>
+
+        <div class="story-timeline">
+            <div class="story-step">
+                <strong>01 · De grap</strong>
+                <span>Een vriend gaf me de kans om zijn haren te knippen.</span>
+            </div>
+            <div class="story-step">
+                <strong>02 · Het potentieel</strong>
+                <span>Ik ontdekte dat ik plezier had in het werk en er verder in wilde groeien.</span>
+            </div>
+            <div class="story-step">
+                <strong>03 · Blijven oefenen</strong>
+                <span>Door te oefenen en aandachtig te werken werd mijn techniek steeds beter.</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="story-container" id="barbershopStoryToday">
+        <h2>Vandaag en verder</h2>
+        <p>Tegenwoordig ben ik goed bezig met DC Barbershop. Wat begon als een grap is uitgegroeid tot iets waar ik serieus aan werk en waar ik trots op ben. Ik wil blijven leren, mijn vaardigheden verder ontwikkelen en iedere klant met aandacht helpen aan een look die bij hem past.</p>
+        <p>De oorsprong herinnert me eraan dat een onverwacht begin soms een mooie richting kan worden. De volgende stap maak ik met dezelfde nieuwsgierigheid en motivatie als toen.</p>
+        <div class="info-cta">
+            <h2>Maak kennis met DC Barbershop</h2>
+            <p>Bekijk de diensten, sfeer en mogelijkheden om een afspraak te maken.</p>
+            <button class="btn" type="button" data-view="barbershopView">Terug naar DC Barbershop</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 DC Barbershop</p>
+    </footer>
+</main>
+
+<dialog class="photo-lightbox" id="photoLightbox" aria-label="Vergrote foto">
+    <button class="photo-lightbox-close" id="closePhotoLightbox" type="button" aria-label="Foto sluiten">×</button>
+    <img id="photoLightboxImage" alt="">
+</dialog>
+
+<dialog class="appointment-dialog" id="appointmentDialog" aria-labelledby="appointmentDialogTitle">
+    <button class="photo-lightbox-close" id="closeAppointmentDialog" type="button" aria-label="Afspraakkeuze sluiten">×</button>
+    <h2 id="appointmentDialogTitle">Maak een afspraak</h2>
+    <p>Kies hoe je contact wilt opnemen met de barber.</p>
+    <div class="appointment-options">
+        <a class="appointment-option" href="mailto:dcbarbershop.info@gmail.com?subject=Afspraak%20maken">
+            <strong>E-mail</strong>
+            <span>dcbarbershop.info@gmail.com</span>
+        </a>
+        <a class="appointment-option" href="https://www.instagram.com/dc.the.barber31/" target="_blank" rel="noopener noreferrer">
+            <strong>Instagram</strong>
+            <span>@dc.the.barber31</span>
+        </a>
+    </div>
+</dialog>
+
+<script>
+const englishTranslations = {
+    "Taal":"Language",
+    "Kies taal":"Choose language",
+    "Welkom bij DC":"Welcome to DC",
+    "Kies de wereld die je wilt ontdekken.":"Choose the world you want to explore.",
+    "Kies een website":"Choose a website",
+    "Interieur & visualisatie":"Interior design & visualization",
+    "Ontdek stijlvolle interieurconcepten, architectuur en projectrenders.":"Discover elegant interior concepts, architecture and project renders.",
+    "Barbering & verzorging":"Barbering & grooming",
+    "Een persoonlijke barberervaring met aandacht voor coupe, detail en stijl.":"A personal barber experience focused on precision, detail and style.",
+    "DC Interiors navigatie":"DC Interiors navigation",
+    "DC Interiors verhaal navigatie":"DC Interiors story navigation",
+    "DC Barbershop navigatie":"DC Barbershop navigation",
+    "DC Barbershop verhaal navigatie":"DC Barbershop story navigation",
+    "← Hoofdpagina":"← Home",
+    "← DC Interiors":"← DC Interiors",
+    "← DC Barbershop":"← DC Barbershop",
+    "Hoofdpagina":"Home",
+    "Diensten":"Services",
+    "Werkwijze":"Our approach",
+    "Portfolio":"Portfolio",
+    "Meer info":"More info",
+    "Contact":"Contact",
+    "Bekijk Portfolio":"View portfolio",
+    "Verberg Portfolio":"Hide portfolio",
+    "Onze Diensten":"Our services",
+    "Residentieel Design":"Residential design",
+    "Volledig interieurontwerp voor woningen, appartementen en villa's.":"Complete interior design for homes, apartments and villas.",
+    "Commercieel Design":"Commercial design",
+    "Luxueuze kantoor-, winkel- en horecaconcepten.":"Luxury concepts for offices, shops and hospitality spaces.",
+    "3D Visualisaties":"3D visualization",
+    "Fotorealistische renders voor projecten en presentaties.":"Photorealistic renders for projects and presentations.",
+    "Van idee naar een ruimte die klopt":"From an idea to a space that feels right",
+    "Een geslaagd interieur is meer dan een mooie afbeelding. Indeling, licht, kleur, materiaal en dagelijks gebruik horen samen te werken. Daarom kijken we naar het geheel en naar de details.":"A successful interior is more than a beautiful image. Layout, light, colour, materials and everyday use should work together. That's why we consider both the overall space and the details.",
+    "Indeling & ruimte":"Layout & space",
+    "We onderzoeken hoe een ruimte wordt gebruikt en hoe functies logisch met elkaar kunnen worden verbonden.":"We look at how a space is used and how its different functions can work together naturally.",
+    "Kleur & materiaal":"Colour & materials",
+    "Kleuren, texturen en materialen helpen de gewenste sfeer op te bouwen en geven een ontwerp samenhang.":"Colours, textures and materials create the desired atmosphere and bring a design together.",
+    "Licht & beleving":"Light & atmosphere",
+    "Licht beïnvloedt hoe een ruimte aanvoelt. We nemen het mee in de sfeer en presentatie van een concept.":"Light shapes how a space feels. We consider it when creating the atmosphere and presenting a concept.",
+    "Visualisatie":"Visualization",
+    "Beelden en presentaties maken ideeën begrijpelijk en helpen keuzes voor het ontwerp te bespreken.":"Images and presentations make ideas easy to understand and help explain design choices.",
+    "Onze werkwijze":"Our approach",
+    "Elk project begint met aandachtig luisteren. Daarna groeit het ontwerp stap voor stap, zodat keuzes niet gehaast maar met een duidelijk doel worden gemaakt.":"Every project starts with listening carefully. The design then develops step by step, so each choice is made with a clear purpose rather than in a rush.",
+    "01 · Kennismaken":"01 · Getting to know you",
+    "We brengen wensen, praktische behoeften en de gewenste sfeer in kaart.":"We identify your wishes, practical needs and the atmosphere you want to create.",
+    "02 · Richting bepalen":"02 · Finding a direction",
+    "Inspiratie, kleuren en materialen vormen samen de basis van het concept.":"Inspiration, colours and materials come together to form the foundation of the concept.",
+    "03 · Ontwerp uitwerken":"03 · Developing the design",
+    "De ideeën worden verfijnd tot een samenhangend ontwerp en visuele presentatie.":"Ideas are refined into a cohesive design and visual presentation.",
+    "04 · Presenteren":"04 · Presentation",
+    "Het eindresultaat wordt overzichtelijk toegelicht, zodat de keuzes goed te volgen zijn.":"The final result is presented clearly, making each design choice easy to follow.",
+    "De tools achter het ontwerp":"The tools behind the design",
+    "Ons team werkt onder andere met Adobe Photoshop, Adobe Illustrator en Adobe InDesign om ideeën zorgvuldig uit te werken en helder te presenteren. De toolkeuze hangt af van wat het project nodig heeft.":"Our team uses tools such as Adobe Photoshop, Adobe Illustrator and Adobe InDesign to develop ideas with care and present them clearly. The tools we choose depend on each project's needs.",
+    "Voor beeldbewerking, sfeerbeelden en het verfijnen van visualisaties.":"For image editing, mood boards and refining visualizations.",
+    "Voor heldere grafische elementen, illustraties en visuele details.":"For clear graphic elements, illustrations and visual details.",
+    "Voor verzorgde presentaties waarin beelden, tekst en ontwerpkeuzes samenkomen.":"For polished presentations that bring images, text and design choices together.",
+    "Benieuwd naar het verhaal achter DC Interiors?":"Curious about the story behind DC Interiors?",
+    "Lees hoe een droom rustig uitgroeide tot een creatieve ontwerppraktijk.":"Read how a dream gradually grew into a creative design practice.",
+    "Project Galerij":"Project gallery",
+    "Het begin":"The beginning",
+    "Onze visie":"Our vision",
+    "Het verhaal van DC Interiors":"The story of DC Interiors",
+    "Een droom kreeg de ruimte om te groeien.":"A dream was given room to grow.",
+    "Het begon met een droom":"It began with a dream",
+    "DC Interiors is begonnen met een droom: ruimtes ontwerpen die niet alleen mooi zijn, maar ook prettig aanvoelen en passen bij de mensen die ze gebruiken. Die droom groeide niet in één dag uit tot een afgerond plan. Er was tijd nodig om te kijken, ideeën te verzamelen en te ontdekken welke stijl echt bij DC Interiors past.":"DC Interiors began with a dream: to design spaces that are not only beautiful, but also feel welcoming and suit the people who use them. That dream did not become a finished plan overnight. It took time to observe, gather ideas and discover the style that truly fits DC Interiors.",
+    "Stap voor stap kon ik rustig ontwerpen. Een indeling, kleur of materiaal kreeg de tijd om goed te voelen voordat het onderdeel werd van een groter geheel. Zo groeide ieder idee verder uit tot een ontwerp met aandacht voor sfeer, functie en persoonlijke smaak.":"Step by step, I was able to take my time designing. Each layout, colour and material had time to feel right before becoming part of the bigger picture. In this way, every idea grew into a design shaped by atmosphere, function and personal taste.",
+    "De droom":"The dream",
+    "Een eigen creatieve richting vinden en ruimtes met karakter ontwerpen.":"Finding a creative direction of my own and designing spaces with character.",
+    "Rustig uitwerken":"Taking the time to refine",
+    "Ideeën verfijnen, keuzes afwegen en ontwerpen stap voor stap opbouwen.":"Refining ideas, weighing choices and developing designs step by step.",
+    "Verder groeien":"Growing further",
+    "Elk project gebruiken om de visie scherper en de presentatie sterker te maken.":"Using every project to sharpen the vision and strengthen the presentation.",
+    "Ontwerpen met aandacht":"Designing with care",
+    "Voor mij draait interieurontwerp om balans: een ruimte moet er goed uitzien, maar ook logisch werken in het dagelijks leven. Daarom begint elk ontwerp met luisteren en rustig nadenken over wat de ruimte nodig heeft.":"For me, interior design is about balance: a space should look beautiful and work well in everyday life. That's why every design starts with listening and carefully considering what the space needs.",
+    "DC Interiors blijft bouwen aan die oorspronkelijke droom. Met nieuwsgierigheid, aandacht voor detail en de ruimte om ideeën zorgvuldig te laten groeien.":"DC Interiors continues to build on that original dream, with curiosity, attention to detail and room for ideas to grow thoughtfully.",
+    "Ontdek DC Interiors":"Discover DC Interiors",
+    "Bekijk de diensten, werkwijze en projectrenders.":"Explore the services, approach and project renders.",
+    "Terug naar DC Interiors":"Back to DC Interiors",
+    "DC Barbershop · Vakmanschap met karakter":"DC Barbershop · Craftsmanship with character",
+    "Een scherpe coupe. Een stijl die helemaal van jou is.":"A sharp cut. A style that's completely yours.",
+    "Stap binnen voor persoonlijke aandacht, precisiewerk en een look die bij jou past. Goed verzorgd de deur uit — elke keer weer.":"Step in for personal attention, precision and a look that suits you. Leave feeling fresh and looking your best — every time.",
+    "Sfeer & resultaat":"Style & results",
+    "Afspraak":"Appointments",
+    "Maak afspraak":"Book an appointment",
+    "De aandacht zit in de details":"It's all in the details",
+    "De perfecte coupe":"The perfect cut",
+    "Een frisse, verzorgde look afgestemd op jouw stijl en wensen.":"A fresh, polished look tailored to your style and preferences.",
+    "Baard & contour":"Beard & line-up",
+    "Strakke lijnen en een verzorgde afwerking maken het verschil.":"Sharp lines and a clean finish make all the difference.",
+    "Jouw moment":"Your moment",
+    "Even tijd voor jezelf, met aandacht voor comfort en vakmanschap.":"Take a moment for yourself, with comfort and craftsmanship at the heart of it.",
+    "Aandacht van begin tot eind":"Care from start to finish",
+    "Iedereen heeft een eigen stijl. Daarom begint een goede knipbeurt met even afstemmen wat je wilt, gevolgd door zorgvuldig werken en een nette afwerking.":"Everyone has their own style. A great haircut starts by discussing what you want, followed by careful work and a clean finish.",
+    "Eerst afstemmen":"First, let's talk",
+    "We bespreken de gewenste coupe of baardstijl en kijken samen naar de details die voor jou belangrijk zijn.":"We'll discuss the cut or beard style you want and the details that matter to you.",
+    "Met precisie werken":"Working with precision",
+    "Vorm en lijnen krijgen aandacht, met als doel een verzorgde look die past bij jouw wensen.":"We focus on shape and lines to create a polished look that suits your preferences.",
+    "Netjes afronden":"Finishing touches",
+    "Een laatste controle en verzorgde afwerking maken de afspraak compleet.":"A final check and polished finish complete your appointment.",
+    "Van een grap naar een barberdroom":"From a joke to a barber dream",
+    "Ontdek hoe DC Barbershop is begonnen en hoe het vakmanschap verder groeit.":"Discover how DC Barbershop began and how the craft continues to grow.",
+    "DC Barbershop resultaatvideo 1":"DC Barbershop result video 1",
+    "DC Barbershop resultaatvideo 2":"DC Barbershop result video 2",
+    "Je browser ondersteunt deze video niet.":"Your browser does not support this video.",
+    "Resultaat van DC Barbershop":"DC Barbershop result",
+    "Plan jouw afspraak":"Book your appointment",
+    "Kies hoe je contact wilt opnemen om een afspraak te plannen.":"Choose how you'd like to get in touch to book an appointment.",
+    "E-mail:":"Email:",
+    "Instagram:":"Instagram:",
+    "Het verhaal van DC Barbershop":"The story of DC Barbershop",
+    "Van een grap naar een passie voor het vak.":"From a joke to a passion for the craft.",
+    "Een vriend, een knipbeurt en een idee":"A friend, a haircut and an idea",
+    "DC Barbershop begon eigenlijk als een grap. Een vriend liet me zijn haren knippen. Het was in eerste instantie gewoon een leuke uitdaging, maar tijdens het knippen merkte ik dat ik er plezier in had. Ik zag er potentieel in en begon me af te vragen hoe ver ik ermee kon komen.":"DC Barbershop actually began as a joke. A friend let me cut his hair. At first, it was just a fun challenge, but while cutting I realized how much I enjoyed it. I saw potential and started wondering how far I could take it.",
+    "In plaats van het bij die ene keer te laten, besloot ik verder te oefenen en beter te worden. Ik bleef aandacht besteden aan mijn techniek, de vorm en de kleine details die een coupe afmaken. Elke nieuwe ervaring gaf me weer iets om van te leren.":"Instead of leaving it at that one time, I decided to keep practising and improve. I focused on my technique, shape and the small details that complete a haircut. Every new experience gave me something to learn.",
+    "01 · De grap":"01 · The joke",
+    "Een vriend gaf me de kans om zijn haren te knippen.":"A friend gave me the chance to cut his hair.",
+    "02 · Het potentieel":"02 · The potential",
+    "Ik ontdekte dat ik plezier had in het werk en er verder in wilde groeien.":"I discovered that I enjoyed the work and wanted to keep growing.",
+    "03 · Blijven oefenen":"03 · Keep practising",
+    "Door te oefenen en aandachtig te werken werd mijn techniek steeds beter.":"Practice and careful work helped me improve my technique.",
+    "Vandaag":"Today",
+    "Vandaag en verder":"Today and beyond",
+    "Tegenwoordig ben ik goed bezig met DC Barbershop. Wat begon als een grap is uitgegroeid tot iets waar ik serieus aan werk en waar ik trots op ben. Ik wil blijven leren, mijn vaardigheden verder ontwikkelen en iedere klant met aandacht helpen aan een look die bij hem past.":"Today, DC Barbershop is going strong. What began as a joke has grown into something I work hard on and take pride in. I want to keep learning, developing my skills and helping every client find a look that suits them.",
+    "De oorsprong herinnert me eraan dat een onverwacht begin soms een mooie richting kan worden. De volgende stap maak ik met dezelfde nieuwsgierigheid en motivatie als toen.":"Its beginnings remind me that an unexpected start can lead somewhere wonderful. I'll take the next step with the same curiosity and motivation I had back then.",
+    "Maak kennis met DC Barbershop":"Get to know DC Barbershop",
+    "Bekijk de diensten, sfeer en mogelijkheden om een afspraak te maken.":"Explore the services, style and ways to book an appointment.",
+    "Terug naar DC Barbershop":"Back to DC Barbershop",
+    "Vergrote foto":"Enlarged photo",
+    "Foto sluiten":"Close photo",
+    "Afspraakkeuze sluiten":"Close appointment options",
+    "Maak een afspraak":"Book an appointment",
+    "Kies hoe je contact wilt opnemen met de barber.":"Choose how you'd like to contact the barber.",
+    "E-mail":"Email",
+    "Afspraak maken":"Book an appointment",
+    "Vergroot foto: ":"Enlarge photo: ",
+    "foto":"photo"
+};
+
+const languageSelect = document.getElementById("languageSelect");
+const translatableTextNodes = [];
+const textWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+let textNode;
+while((textNode = textWalker.nextNode())){
+    if(textNode.parentElement.closest("script,style")){
+        continue;
+    }
+    if(textNode.nodeValue.trim()){
+        translatableTextNodes.push({
+            node:textNode,
+            original:textNode.nodeValue
+        });
+    }
+}
+
+const translatableAttributes = [];
+document.querySelectorAll("[aria-label], [alt]").forEach(function(element){
+    ["aria-label","alt"].forEach(function(attribute){
+        if(element.hasAttribute(attribute)){
+            translatableAttributes.push({
+                element:element,
+                attribute:attribute,
+                original:element.getAttribute(attribute)
+            });
+        }
+    });
+});
+
+let currentLanguage = "nl";
+
+const revealSelector = [
+    "#interiorsView > .interiors-hero",
+    "#interiorsView > .container",
+    "#interiorsView > section",
+    "#interiorsStoryView > .story-hero",
+    "#interiorsStoryView > .story-container",
+    "#barbershopView > .barber-hero",
+    "#barbershopView > section",
+    "#barbershopStoryView > .story-hero",
+    "#barbershopStoryView > .story-container",
+    "#interiorsView .services > .card",
+    "#interiorsView .detail-grid > .detail-card",
+    "#interiorsView .story-timeline > .story-step",
+    "#interiorsView .info-cta",
+    "#barbershopView .services > .card",
+    "#barbershopView .detail-grid > .detail-card",
+    "#barbershopView .story-timeline > .story-step",
+    "#barbershopView .barber-gallery > .photo-frame",
+    "#barbershopView .info-cta",
+    "#barbershopStoryView .story-timeline > .story-step",
+    "#barbershopStoryView .info-cta",
+    "#interiorsStoryView .story-timeline > .story-step",
+    "#interiorsStoryView .info-cta"
+].join(",");
+
+const revealObserver = !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+    "IntersectionObserver" in window
+    ? new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+            if(entry.isIntersecting){
+                entry.target.classList.add("is-visible");
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold:0.14,
+        rootMargin:"0px 0px -7% 0px"
+    })
+    : null;
+
+function observeScrollReveals(root){
+    if(!revealObserver){
+        return;
+    }
+    root.querySelectorAll(".scroll-reveal:not(.is-visible)").forEach(function(element){
+        revealObserver.observe(element);
+    });
+}
+
+if(revealObserver){
+    document.querySelectorAll(revealSelector).forEach(function(element){
+        element.classList.add("scroll-reveal");
+    });
+
+    document.querySelectorAll(".services, .detail-grid, .story-timeline, .barber-gallery")
+        .forEach(function(group){
+            Array.from(group.children).forEach(function(element, index){
+                element.style.setProperty("--reveal-delay", (index * 110) + "ms");
+            });
+        });
+}
+
+document.querySelectorAll("[data-view]").forEach(function(button){
+    button.addEventListener("click", function(){
+        const viewId = button.getAttribute("data-view");
+        document.querySelectorAll(".site-view").forEach(function(view){
+            view.hidden = view.id !== viewId;
+        });
+        observeScrollReveals(document.getElementById(viewId));
+        if(window.location.hash){
+            window.history.replaceState(
+                null,
+                "",
+                window.location.pathname + window.location.search
+            );
+        }
+        const prefersReducedMotion =
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        window.scrollTo({
+            top:0,
+            behavior:prefersReducedMotion ? "auto" : "smooth"
+        });
+    });
+});
+
+const portfolioButton =
+    document.getElementById("portfolioButton");
+const portfolio =
+    document.getElementById("portfolio");
+
+function applyLanguage(language){
+    currentLanguage = language;
+    document.documentElement.lang = language;
+
+    translatableTextNodes.forEach(function(entry){
+        const originalText = entry.original.trim();
+        const translatedText = language === "en"
+            ? englishTranslations[originalText] || originalText
+            : originalText;
+        entry.node.nodeValue = entry.original.replace(originalText, translatedText);
+    });
+
+    translatableAttributes.forEach(function(entry){
+        const translatedValue = language === "en"
+            ? englishTranslations[entry.original] || entry.original
+            : entry.original;
+        entry.element.setAttribute(entry.attribute, translatedValue);
+    });
+
+    document.querySelectorAll(".gallery img, .photo-frame img").forEach(function(photo){
+        const prefix = language === "en" ? "Enlarge photo: " : "Vergroot foto: ";
+        photo.setAttribute("aria-label", prefix + (photo.alt || (language === "en" ? "photo" : "foto")));
+    });
+
+    const portfolioIsExpanded =
+        portfolioButton.getAttribute("aria-expanded") === "true";
+    portfolioButton.textContent = language === "en"
+        ? (portfolioIsExpanded ? "Hide portfolio" : "View portfolio")
+        : (portfolioIsExpanded ? "Verberg Portfolio" : "Bekijk Portfolio");
+
+    document.querySelector("#appointmentDialog .appointment-option[href^='mailto:']")
+        .setAttribute("href", language === "en"
+            ? "mailto:dcbarbershop.info@gmail.com?subject=Book%20an%20appointment"
+            : "mailto:dcbarbershop.info@gmail.com?subject=Afspraak%20maken");
+}
+
+languageSelect.addEventListener("change", function(){
+    applyLanguage(languageSelect.value);
+});
+applyLanguage(languageSelect.value);
+
+function scrollToSection(section){
+    const prefersReducedMotion =
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    section.scrollIntoView({
+        behavior:prefersReducedMotion ? "auto" : "smooth"
+    });
+}
+
+function setPortfolioVisible(isVisible){
+    portfolio.hidden = !isVisible;
+    portfolioButton.setAttribute("aria-expanded", String(isVisible));
+    portfolioButton.textContent = isVisible
+        ? (currentLanguage === "en" ? "Hide portfolio" : "Verberg Portfolio")
+        : (currentLanguage === "en" ? "View portfolio" : "Bekijk Portfolio");
+    if(isVisible){
+        observeScrollReveals(portfolio);
+    }
+}
+
+portfolioButton.addEventListener("click", function(){
+    const isExpanded = portfolioButton.getAttribute("aria-expanded") === "true";
+    setPortfolioVisible(!isExpanded);
+
+    if(!isExpanded){
+        scrollToSection(portfolio);
+    }
+});
+
+document.querySelectorAll("[data-open-portfolio]").forEach(function(button){
+    button.addEventListener("click", function(){
+        setPortfolioVisible(true);
+        scrollToSection(portfolio);
+    });
+});
+
+const appointmentDialog =
+    document.getElementById("appointmentDialog");
+
+document.querySelectorAll("[data-open-appointment]").forEach(function(button){
+    button.addEventListener("click", function(){
+        appointmentDialog.showModal();
+    });
+});
+
+document.getElementById("closeAppointmentDialog").addEventListener("click", function(){
+    appointmentDialog.close();
+});
+
+appointmentDialog.addEventListener("click", function(event){
+    if(event.target === appointmentDialog){
+        appointmentDialog.close();
+    }
+});
+
+const photoLightbox =
+    document.getElementById("photoLightbox");
+const photoLightboxImage =
+    document.getElementById("photoLightboxImage");
+
+document.querySelectorAll(".gallery img, .photo-frame img").forEach(function(photo){
+    photo.tabIndex = 0;
+    photo.setAttribute("role", "button");
+    photo.setAttribute("aria-label", "Vergroot foto: " + (photo.alt || "foto"));
+
+    function openPhoto(){
+        photoLightboxImage.src = photo.currentSrc || photo.src;
+        photoLightboxImage.alt = photo.alt || "Vergrote foto";
+        photoLightbox.showModal();
+    }
+
+    photo.addEventListener("click", openPhoto);
+    photo.addEventListener("keydown", function(event){
+        if(event.key === "Enter" || event.key === " "){
+            event.preventDefault();
+            openPhoto();
+        }
+    });
+});
+
+document.getElementById("closePhotoLightbox").addEventListener("click", function(){
+    photoLightbox.close();
+});
+
+photoLightbox.addEventListener("click", function(event){
+    if(event.target === photoLightbox){
+        photoLightbox.close();
+    }
+});
+</script>
+
+</body>
+</html>
